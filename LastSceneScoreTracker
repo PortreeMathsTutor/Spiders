@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+
+public class LastSceneScoreTracker : MonoBehaviour
+{
+
+    [SerializeField]
+    private ScoreManager scoreManager;
+    public int score;
+    public int highScoreInt = 0;
+    public TextMeshProUGUI highScore;
+    public TextMeshProUGUI scoreTex;
+ 
+    void Start()
+    {
+        score = scoreManager.score;
+             scoreTex.text = "SCORE: " + score.ToString("0");
+
+        highScore.text =  " HIGHSCORE: " + PlayerPrefs.GetInt("highScore4", 0).ToString();
+    }
+
+}
