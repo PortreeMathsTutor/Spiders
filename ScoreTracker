@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+
+public class ScoreTracker : MonoBehaviour
+{
+    [SerializeField]
+    private ScoreManager scoreManager;
+    public int score;
+    public int livesLeft;
+    public int highScoreInt = 0;
+    //   public Text highScore;
+    public TextMeshProUGUI scoreTex;
+    public TextMeshProUGUI livesLeftTex;
+    public TextMeshProUGUI highScoreTex;
+    void Start()
+    {
+        scoreManager.SetScoreToZero();
+        scoreManager.SetLivesTo5();
+        highScoreTex.text =  "HIGHSCORE: " + PlayerPrefs.GetInt("highScore4", 0).ToString();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    livesLeft = scoreManager.livesLeft;
+    score = scoreManager.score;
+      
+     
+        if (score < 0) { score = 0; }
+   scoreTex.text = "SCORE: "+score.ToString("0");
+        livesLeftTex.text ="LIVES: " +livesLeft.ToString("0");
+        if (score > PlayerPrefs.GetInt("highScore4", 0))
+        {
+         
+  
+            PlayerPrefs.SetInt("highScore4", score);
+            highScoreTex.text = "HIGHSCORE: " + score.ToString();
+        }
+    }
+}
