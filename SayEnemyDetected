@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SayEnemyDetected : MonoBehaviour
+{
+  
+    public AudioSource audioData;
+    // Start is called before the first frame update
+    void Start()
+    {
+        audioData = GetComponent<AudioSource>();
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Team2")
+        {
+            audioData.enabled = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Team2")
+        {
+            audioData.enabled = false;
+        }
+    }
+
+}
