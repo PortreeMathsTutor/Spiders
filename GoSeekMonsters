@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GoSeekMonsters : MonoBehaviour
+{
+    public static bool curserOn;
+  //  public GameObject player;
+  //  public GameObject weapons1;
+    private float curDistance;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Enemy");
+        if (gos.Length<1)
+        {
+            curserOn = false;
+            //  player.GetComponent<FirstPersonHeadBob>().enabled = false;
+            //  weapons1.SetActive(false);
+        }
+        else
+        {
+            GameObject closest = null;
+            float distance = Mathf.Infinity;
+            Vector3 position = transform.position;
+            foreach (GameObject go in gos)
+            {
+                Vector3 diff = go.transform.position - position;
+                curDistance = diff.sqrMagnitude;
+                if (curDistance < distance)
+                {
+                    closest = go;
+                    distance = curDistance;
+                    if (curDistance < 50000)
+                    {
+                        curserOn = true;
+                        //   weapons1.SetActive(true);
+                        //   player.GetComponent<FirstPersonHeadBob>().enabled = true;
+
+                    }
+                    else
+                    {
+                        curserOn = false;
+                        //   player.GetComponent<FirstPersonHeadBob>().enabled = false;
+                        //  weapons1.SetActive(false);
+                    }
+                }
+            }
+        }
+       
+    }
+}
