@@ -1,0 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NewSpawner : MonoBehaviour
+{
+    private float spawnTimer = 0.0f;
+    private bool canSpawn;
+    public GameObject prefabToSpawn;                // The prefab that should be spawned
+    public float spawnFrequency = 6.0f;
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Team2")
+        {
+            spawnTimer = 100;
+            canSpawn = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Team2")
+        {
+            canSpawn = false;
+        }
+    }
+    void Spawn()
+    {
+        // First check to see if the prefab hasn't been set
+        if (prefabToSpawn != null)
+        {
+            // Instantiate the prefab
+            Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+        }
+    }
+    void Update()
+    {
+        // Update the spawning timer
+        spawnTimer += Time.deltaTime;
+        if (canSpawn)
+        { // Spawn a prefab if the timer has reached spawnFrequency
+            if (spawnTimer >= spawnFrequency)
+            {
+                // First reset the spawn timer to 0
+                spawnTimer = 0.0f;
+                Spawn();
+            }
+        }
+    }
+}
