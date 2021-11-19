@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MoveTerrains : MonoBehaviour
+{
+    GameObject player;
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Team2");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (player.transform.position.z>transform.position.z+1200f)
+        {
+            transform.position = transform.position + new Vector3(0,0,3000f);
+        }
+        if (player.transform.position.z < transform.position.z - 1500f)
+        {
+            transform.position = transform.position + new Vector3(0, 0, -3000f);
+        }
+    }
+}
